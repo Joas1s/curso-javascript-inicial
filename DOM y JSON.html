@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+        }
+        .green {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Estudiantes</h1>
+    <div class="container">
+        <!-- Aquí se mostrará la lista de estudiantes -->
+    </div>
+    <p>Promedio General de la Clase: <span id="promedio-general"></span></p>
+    <script>
+        const claseJSON = '{"estudiantes":[{"nombre":"Juan","promedio":7},{"nombre":"Pedro","promedio":9},{"nombre":"Maria","promedio":8},{"nombre":"Carlos","promedio":10},{"nombre":"Ana","promedio":7},{"nombre":"Pablo","promedio":10},{"nombre":"Matias","promedio":6},{"nombre":"Ezequiel","promedio":8},{"nombre":"Florencia","promedio":9},{"nombre":"Roxana","promedio":7}]}';
+        const clase = JSON.parse(claseJSON);
+        let container = document.querySelector('.container');
+        let promedioGeneral = 0;
+
+        clase.estudiantes.forEach(estudiante => {
+            const listaEstudiantes = `<p> ${estudiante.nombre}, y su promedio es ${estudiante.promedio} </p>`;
+            container.insertAdjacentHTML("beforeend", listaEstudiantes);
+            
+            if (estudiante.promedio === 10) {
+                const estudianteElemento = container.lastElementChild;
+                estudianteElemento.classList.add("green");
+            }
+
+            promedioGeneral += estudiante.promedio;
+        });
+
+        promedioGeneral /= clase.estudiantes.length;
+        const promedioGeneralElemento = document.getElementById("promedio-general");
+        promedioGeneralElemento.textContent = promedioGeneral.toFixed(2);
+    </script>
+</body>
+</html>
